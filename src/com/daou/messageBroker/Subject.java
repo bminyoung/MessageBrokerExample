@@ -14,7 +14,14 @@ public abstract class Subject {
         observers.remove(observer);
     }
 
+    /*
+    * function as broadcasting
+    * */
     void notifyObservers(String msg){
         observers.forEach(o -> o.send(msg));
+    }
+
+    public void close(){
+        observers.clear();
     }
 }
