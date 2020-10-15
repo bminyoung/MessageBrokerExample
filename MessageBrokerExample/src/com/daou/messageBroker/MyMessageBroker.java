@@ -1,6 +1,6 @@
 package com.daou.messageBroker;
 
-import com.daou.Thread.ReceiveThread;
+import com.daou.Thread.ReceiveTask;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -31,7 +31,8 @@ public class MyMessageBroker {
 //            publishers.put(topic, publisher); //if null
             System.out.println("server has been connected");
 
-            ReceiveThread receiveThread = new ReceiveThread(publisher);
+            ReceiveTask receiveTask = new ReceiveTask(publisher);
+            Thread receiveThread = new Thread(receiveTask);
             receiveThread.start();
 
             acceptSubscriber();

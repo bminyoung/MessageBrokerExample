@@ -6,17 +6,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class ReceiveThread extends Thread{
+public class ReceiveTask implements Runnable {
     private Publisher publisher;
 
-    public ReceiveThread(Publisher publisher){
+    public ReceiveTask(Publisher publisher){
         this.publisher = publisher;
     }
 
     @Override
     public void run() {
-        super.run();
-
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(publisher.getSocket().getInputStream()));
             while(true){
