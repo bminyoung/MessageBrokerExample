@@ -11,8 +11,8 @@ public class Publisher extends Subject{
         this.socket = socket;
     }
 
-    public void publish(String msg){
-        notifyObservers(msg);
+    public void publish(String topic, String msg){
+        notifyObservers(topic, msg);
     }
 
     public Socket getSocket() {

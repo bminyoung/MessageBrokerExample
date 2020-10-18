@@ -3,6 +3,7 @@ package com.daou.messageBroker;
 import com.daou.Thread.SendTask;
 
 import java.net.Socket;
+import java.util.HashSet;
 
 public class Subscriber implements Observer{
 
@@ -16,5 +17,9 @@ public class Subscriber implements Observer{
     public void send(String msg) {
         Thread thread = new Thread(new SendTask(socket, msg));
         thread.start();
+    }
+
+    public boolean isContainTopic(String topic){
+        return topicSet.contains(topic);
     }
 }

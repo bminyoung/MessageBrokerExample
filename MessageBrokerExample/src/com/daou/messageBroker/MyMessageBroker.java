@@ -14,6 +14,10 @@ public class MyMessageBroker {
     private ServerSocket brokerServerSocket;
 
     /*
+    * use table for pub/sub!
+    * */
+
+    /*
     * connect to server
     * */
     public void useBroker(int port) {
