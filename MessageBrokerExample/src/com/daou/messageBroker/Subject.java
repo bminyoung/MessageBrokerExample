@@ -17,9 +17,11 @@ public abstract class Subject {
     /*
     * function as broadcasting
     * */
-    void notifyObservers(String topic, String msg){
-        observers.stream().filter(o -> o.isContainTopic(topic)).forEach(o -> o.send(msg));
-    }
+    abstract void notifyObservers(String msg);
+//    {
+//        observers.stream().filter(o -> o.isContainTopic(topic)).forEach(o -> o.send(msg));
+//        observers.forEach(o -> o.send(msg));
+//    }
 
     public void close(){
         observers.clear();

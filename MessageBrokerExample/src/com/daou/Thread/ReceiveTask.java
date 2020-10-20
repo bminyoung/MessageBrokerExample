@@ -18,10 +18,9 @@ public class ReceiveTask implements Runnable {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(publisher.getSocket().getInputStream()));
             while(true){
-                String topic = br.readLine();
                 String receive = br.readLine();
                 System.out.println("publish msg: " + receive);
-                publisher.publish(topic, receive);
+                publisher.publish(receive);
             }
         } catch (IOException e) {
             System.out.println("disconnected");

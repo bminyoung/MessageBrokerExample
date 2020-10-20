@@ -15,8 +15,10 @@ public class Subscriber implements Observer{
 
     @Override
     public void send(String msg) {
-        Thread thread = new Thread(new SendTask(socket, msg));
-        thread.start();
+        if(isContainTopic("/topic")){
+            Thread thread = new Thread(new SendTask(socket, msg));
+            thread.start();
+        }
     }
 
     public boolean isContainTopic(String topic){

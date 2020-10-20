@@ -9,7 +9,8 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class MyMessageBroker {
+public class MyMessageBroker extends Subject{
+    //manage in broker
     private HashMap<String, HashSet<Subscriber>> subscribers = new HashMap<>();
     private Publisher publisher;
     private ServerSocket brokerServerSocket;
@@ -18,11 +19,16 @@ public class MyMessageBroker {
     * use table for pub/sub!
     * */
 
+    MyMessageBroker(){
+        subscribers.put("/topic", new HashSet<>());
+    }
+
     /*
     * connect to server
     * */
     public void useBroker(int port) {
         try {
+
             brokerServerSocket = new ServerSocket();
             InetSocketAddress endpoint = new InetSocketAddress(port);
             brokerServerSocket.bind(endpoint);
@@ -31,9 +37,10 @@ public class MyMessageBroker {
 
             while(true){
                 Socket acceptSocket = brokerServerSocket.accept();
-//                String topic = "";
-//                publishers.put(topic, publisher); //if null
                 System.out.println("client has been connected");
+
+                //tmp: auto sub
+                subscribers.get("/topic").add(new Subscriber(acceptSocket));
 
                 ReceiveTask receiveTask = new ReceiveTask(new Publisher(acceptSocket));
                 Thread receiveThread = new Thread(receiveTask);
@@ -49,6 +56,11 @@ public class MyMessageBroker {
 
         Subscriber sub = new Subscriber(socket);
         publisher.subscribe(sub);
+    }
+
+    @Override
+    void notifyObservers(String msg) {
+
     }
 
     /*
