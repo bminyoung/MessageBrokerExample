@@ -11,7 +11,7 @@ import java.util.HashSet;
 
 public class MyMessageBroker extends Subject{
     //manage in broker
-    private HashMap<String, HashSet<Subscriber>> subscribers = new HashMap<>();
+    private static final HashMap<String, HashSet<Subscriber>> subscribers = new HashMap<>();
     private Publisher publisher;
     private ServerSocket brokerServerSocket;
 
@@ -21,6 +21,10 @@ public class MyMessageBroker extends Subject{
 
     MyMessageBroker(){
         subscribers.put("/topic", new HashSet<>());
+    }
+
+    public HashMap<String, HashSet<Subscriber>> getSubscribers(){
+        return subscribers;
     }
 
     /*
